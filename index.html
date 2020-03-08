@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sudoku</title>
+  </head>
+  <body>
+    <style>
+      /* with css reset */
+      * {
+        box-sizing: border-box;
+      }
+      table {
+        margin: 10px;
+      }
+      tr:first-child td {
+        border-top-color: black;
+      }
+      tr:nth-child(3n) td {
+        border-bottom-color: black;
+      }
+      td {
+        border: 1px solid lightgrey;
+        height: 40px;
+        width: 40px;
+      }
+      td:first-child {
+        border-left-color: black;
+      }
+      td:nth-child(3n) {
+        border-right-color: black;
+      }
+      input[type="text"] {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        border: 0;
+        height: 4rem;
+        width: 4rem;
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      input:hover {
+        background: #ffffff;
+      }
+    </style>
+    <table id="sudokuInput">
+      <tbody>
+        <tr>
+          <td><input type="text" data-x="0" data-y="0" /></td>
+          <td><input type="text" data-x="1" data-y="0" /></td>
+          <td><input type="text" data-x="2" data-y="0" /></td>
+          <td><input type="text" data-x="3" data-y="0" /></td>
+          <td><input type="text" data-x="4" data-y="0" /></td>
+          <td><input type="text" data-x="5" data-y="0" /></td>
+          <td><input type="text" data-x="6" data-y="0" /></td>
+          <td><input type="text" data-x="7" data-y="0" /></td>
+          <td><input type="text" data-x="8" data-y="0" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="1" /></td>
+          <td><input type="text" data-x="1" data-y="1" /></td>
+          <td><input type="text" data-x="2" data-y="1" /></td>
+          <td><input type="text" data-x="3" data-y="1" /></td>
+          <td><input type="text" data-x="4" data-y="1" /></td>
+          <td><input type="text" data-x="5" data-y="1" /></td>
+          <td><input type="text" data-x="6" data-y="1" /></td>
+          <td><input type="text" data-x="7" data-y="1" /></td>
+          <td><input type="text" data-x="8" data-y="1" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="2" /></td>
+          <td><input type="text" data-x="1" data-y="2" /></td>
+          <td><input type="text" data-x="2" data-y="2" /></td>
+          <td><input type="text" data-x="3" data-y="2" /></td>
+          <td><input type="text" data-x="4" data-y="2" /></td>
+          <td><input type="text" data-x="5" data-y="2" /></td>
+          <td><input type="text" data-x="6" data-y="2" /></td>
+          <td><input type="text" data-x="7" data-y="2" /></td>
+          <td><input type="text" data-x="8" data-y="2" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="3" /></td>
+          <td><input type="text" data-x="1" data-y="3" /></td>
+          <td><input type="text" data-x="2" data-y="3" /></td>
+          <td><input type="text" data-x="3" data-y="3" /></td>
+          <td><input type="text" data-x="4" data-y="3" /></td>
+          <td><input type="text" data-x="5" data-y="3" /></td>
+          <td><input type="text" data-x="6" data-y="3" /></td>
+          <td><input type="text" data-x="7" data-y="3" /></td>
+          <td><input type="text" data-x="8" data-y="3" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="4" /></td>
+          <td><input type="text" data-x="1" data-y="4" /></td>
+          <td><input type="text" data-x="2" data-y="4" /></td>
+          <td><input type="text" data-x="3" data-y="4" /></td>
+          <td><input type="text" data-x="4" data-y="4" /></td>
+          <td><input type="text" data-x="5" data-y="4" /></td>
+          <td><input type="text" data-x="6" data-y="4" /></td>
+          <td><input type="text" data-x="7" data-y="4" /></td>
+          <td><input type="text" data-x="8" data-y="4" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="5" /></td>
+          <td><input type="text" data-x="1" data-y="5" /></td>
+          <td><input type="text" data-x="2" data-y="5" /></td>
+          <td><input type="text" data-x="3" data-y="5" /></td>
+          <td><input type="text" data-x="4" data-y="5" /></td>
+          <td><input type="text" data-x="5" data-y="5" /></td>
+          <td><input type="text" data-x="6" data-y="5" /></td>
+          <td><input type="text" data-x="7" data-y="5" /></td>
+          <td><input type="text" data-x="8" data-y="5" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="6" /></td>
+          <td><input type="text" data-x="1" data-y="6" /></td>
+          <td><input type="text" data-x="2" data-y="6" /></td>
+          <td><input type="text" data-x="3" data-y="6" /></td>
+          <td><input type="text" data-x="4" data-y="6" /></td>
+          <td><input type="text" data-x="5" data-y="6" /></td>
+          <td><input type="text" data-x="6" data-y="6" /></td>
+          <td><input type="text" data-x="7" data-y="6" /></td>
+          <td><input type="text" data-x="8" data-y="6" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="7" /></td>
+          <td><input type="text" data-x="1" data-y="7" /></td>
+          <td><input type="text" data-x="2" data-y="7" /></td>
+          <td><input type="text" data-x="3" data-y="7" /></td>
+          <td><input type="text" data-x="4" data-y="7" /></td>
+          <td><input type="text" data-x="5" data-y="7" /></td>
+          <td><input type="text" data-x="6" data-y="7" /></td>
+          <td><input type="text" data-x="7" data-y="7" /></td>
+          <td><input type="text" data-x="8" data-y="7" /></td>
+        </tr>
+        <tr>
+          <td><input type="text" data-x="0" data-y="8" /></td>
+          <td><input type="text" data-x="1" data-y="8" /></td>
+          <td><input type="text" data-x="2" data-y="8" /></td>
+          <td><input type="text" data-x="3" data-y="8" /></td>
+          <td><input type="text" data-x="4" data-y="8" /></td>
+          <td><input type="text" data-x="5" data-y="8" /></td>
+          <td><input type="text" data-x="6" data-y="8" /></td>
+          <td><input type="text" data-x="7" data-y="8" /></td>
+          <td><input type="text" data-x="8" data-y="8" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <button onclick="Sudoku.resolve()">Résoudre</button>
+    <script src="lib/SudokuSolver.js"></script>
+  </body>
+</html>

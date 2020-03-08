@@ -20,9 +20,14 @@ class Sudoku {
   }
 
   static resolve() {
-    const cells = Sudoku.getBoardFromHtml();
+    let cells = Sudoku.getBoardFromHtml();
     this.sudokuSolver = new SudokuSolver(cells);
     const [isResolved, resolvedCells] = this.sudokuSolver.process();
+    if (!isResolved) {
+      alert("Non résolvable.");
+      return;
+    }
+    // On affiche le sudoku sur la partie droite de l'écran.
   }
 }
 
@@ -32,10 +37,31 @@ class SudokuSolver {
 
   constructor(board: Cell[][]) {
     this.board = board;
+
+    // On initialise les contraintes initiales.
+    for (let x = 0; x < SIZE; x++) {
+      for (let y = 0; y < SIZE; y++) {
+        this.updateConstraints(x, y);
+      }
+    }
+  }
+
+  /**
+   * Ajoute des contraintes à la cellule (x; y).
+   * Correspond à enlever les valeurs possibles qui ont déjà été attribué sur la ligne / colonne / carré.
+   * @param x
+   * @param y
+   */
+  private updateConstraints(x: number, y: number): void {
+    const cell = this.board[x][y];
+    cell.addConstraints(this.lineConstraints(y));
+    cell.addConstraints(this.columnConstraints(x));
+    cell.addConstraints(this.boxConstraints(x, y));
   }
 
   private ac3(): void {}
   private lcv(): void {}
+
   private mrv(): void {}
 
   private lineConstraints(row: number): Set<number> {
@@ -76,9 +102,7 @@ class SudokuSolver {
 
   public process(): [boolean, Cell[][]] {
     const cells: Cell[][] = [];
-    const isResolved = true;
-
-    // Algorithme de resolution
+    const isResolved = false;
 
     return [isResolved, cells];
   }
@@ -87,15 +111,23 @@ class SudokuSolver {
 class Cell {
   ///position: [number, number];
   value: number | undefined; // if undefined, no value (yet)
-  possibilies: Set<number>;
+  possible_values: Set<number> = new Set<number>([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
   constructor(value: number) {
     this.value = value;
   }
 
-  removePossibleValue(value: number) {
-    if (this.possibilies.has(value)) {
-      this.possibilies.delete(value);
-    }
+  addConstraints(values: Set<number>) {
+    this.removeAll(this.possible_values, values);
+  }
+
+  public isEmpty(): boolean {
+    return this.value === undefined;
+  }
+
+  private removeAll(originalSet: Set<number>, toBeRemovedSet: Set<number>) {
+    [...toBeRemovedSet].forEach(function(v) {
+      originalSet.delete(v);
+    });
   }
 }

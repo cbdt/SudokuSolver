@@ -1,7 +1,4 @@
 {
-  "presets": [
-    ["@babel/env", { "targets": ["last 2 versions", "not dead", "not < 2%"] }],
-    "@babel/typescript"
-  ],
+  "presets": [["@babel/env"], "@babel/typescript"],
   "plugins": []
 }

@@ -19,14 +19,31 @@ class Sudoku {
     return cells;
   }
 
+  private static displayBoard(cells: Cell[][]): void {
+    const rootInput = document.querySelector("#sudokuSolution");
+    const inputs = rootInput.querySelectorAll("input[type=text]");
+    inputs.forEach((input: HTMLInputElement) => {
+      const x = input.getAttribute("data-x");
+      if (cells[x] === undefined) cells[x] = [];
+      const y = input.getAttribute("data-y");
+      input.value = cells[x][y].value !== 0 ? cells[x][y].value : "";
+      input.disabled = true;
+    });
+  }
+
   static resolve() {
     let cells = Sudoku.getBoardFromHtml();
+    let $resultTitle = document.querySelector(".result-title");
     this.sudokuSolver = new SudokuSolver(cells);
     const [isResolved, resolvedCells] = this.sudokuSolver.process();
     if (!isResolved) {
-      alert("Non résolvable.");
+      $resultTitle.innerHTML = "Non résolu";
+      $resultTitle.classList.add("not resolved");
       return;
     }
+    $resultTitle.innerHTML = "Résolu";
+    $resultTitle.classList.add("resolved");
+    Sudoku.displayBoard(resolvedCells);
     // On affiche le sudoku sur la partie droite de l'écran.
   }
 }
@@ -48,7 +65,7 @@ class SudokuSolver {
 
   /**
    * Ajoute des contraintes à la cellule (x; y).
-   * Correspond à enlever les valeurs possibles qui ont déjà été attribué sur la ligne / colonne / carré.
+   * Correspond à enlever les valeurs possibles qui ont déjà été attribué sur la ligne / la colonne / le carré.
    * @param x
    * @param y
    */
@@ -101,8 +118,9 @@ class SudokuSolver {
   }
 
   public process(): [boolean, Cell[][]] {
-    const cells: Cell[][] = [];
-    const isResolved = false;
+    // TODO: To remove
+    const cells: Cell[][] = this.board; // for now we display the same cells to see if it works.
+    const isResolved = true;
 
     return [isResolved, cells];
   }

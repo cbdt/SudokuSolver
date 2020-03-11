@@ -93,7 +93,133 @@
         margin: 0;
         font-size: 1.5rem;
       }
+
+      .loading {
+        filter: blur(5px);
+      }
+
+      .sudoku {
+        position: relative;
+      }
+
+      .is-loading {
+        display: flex !important;
+      }
+
+      .loader-box {
+        display: none;
+        margin-top: -30px;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+      }
+
+      .loader {
+        color: #2d3748;
+        font-size: 60px;
+        text-indent: -9999em;
+        overflow: hidden;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        margin: 72px auto;
+        position: relative;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+        animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+      }
+      @-webkit-keyframes load6 {
+        0% {
+          box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+        5%,
+        95% {
+          box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+        10%,
+        59% {
+          box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em,
+            -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em,
+            -0.297em -0.775em 0 -0.477em;
+        }
+        20% {
+          box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+            -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+            -0.749em -0.34em 0 -0.477em;
+        }
+        38% {
+          box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+            -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+            -0.82em -0.09em 0 -0.477em;
+        }
+        100% {
+          box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+      }
+      @keyframes load6 {
+        0% {
+          box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+        5%,
+        95% {
+          box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+        10%,
+        59% {
+          box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em,
+            -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em,
+            -0.297em -0.775em 0 -0.477em;
+        }
+        20% {
+          box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+            -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+            -0.749em -0.34em 0 -0.477em;
+        }
+        38% {
+          box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+            -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+            -0.82em -0.09em 0 -0.477em;
+        }
+        100% {
+          box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+      }
+      @-webkit-keyframes round {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes round {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
     </style>
+    <div class="sudoku-samples">
+      <button onclick="Sudoku.generateSudoku(0)">FACILE</button>
+      <button onclick="Sudoku.generateSudoku(1)">MODÉRÉ</button>
+      <button onclick="Sudoku.generateSudoku(2)">DIFFICILE</button>
+    </div>
     <div class="row">
       <div class="sudoku">
         <table id="sudokuInput">
@@ -202,106 +328,109 @@
         <button onclick="Sudoku.resolve()" class="resolve-btn">Résoudre</button>
       </div>
       <div class="sudoku">
+        <div class="loader-box">
+          <div class="loader">Loading...</div>
+        </div>
         <table id="sudokuSolution">
           <tbody>
             <tr>
-              <td><input type="text" data-x="0" data-y="A" /></td>
-              <td><input type="text" data-x="1" data-y="A" /></td>
-              <td><input type="text" data-x="2" data-y="A" /></td>
-              <td><input type="text" data-x="3" data-y="A" /></td>
-              <td><input type="text" data-x="4" data-y="A" /></td>
-              <td><input type="text" data-x="5" data-y="A" /></td>
-              <td><input type="text" data-x="6" data-y="A" /></td>
-              <td><input type="text" data-x="7" data-y="A" /></td>
-              <td><input type="text" data-x="8" data-y="A" /></td>
+              <td><input disabled type="text" data-x="0" data-y="A" /></td>
+              <td><input disabled type="text" data-x="1" data-y="A" /></td>
+              <td><input disabled type="text" data-x="2" data-y="A" /></td>
+              <td><input disabled type="text" data-x="3" data-y="A" /></td>
+              <td><input disabled type="text" data-x="4" data-y="A" /></td>
+              <td><input disabled type="text" data-x="5" data-y="A" /></td>
+              <td><input disabled type="text" data-x="6" data-y="A" /></td>
+              <td><input disabled type="text" data-x="7" data-y="A" /></td>
+              <td><input disabled type="text" data-x="8" data-y="A" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="B" /></td>
-              <td><input type="text" data-x="1" data-y="B" /></td>
-              <td><input type="text" data-x="2" data-y="B" /></td>
-              <td><input type="text" data-x="3" data-y="B" /></td>
-              <td><input type="text" data-x="4" data-y="B" /></td>
-              <td><input type="text" data-x="5" data-y="B" /></td>
-              <td><input type="text" data-x="6" data-y="B" /></td>
-              <td><input type="text" data-x="7" data-y="B" /></td>
-              <td><input type="text" data-x="8" data-y="B" /></td>
+              <td><input disabled type="text" data-x="0" data-y="B" /></td>
+              <td><input disabled type="text" data-x="1" data-y="B" /></td>
+              <td><input disabled type="text" data-x="2" data-y="B" /></td>
+              <td><input disabled type="text" data-x="3" data-y="B" /></td>
+              <td><input disabled type="text" data-x="4" data-y="B" /></td>
+              <td><input disabled type="text" data-x="5" data-y="B" /></td>
+              <td><input disabled type="text" data-x="6" data-y="B" /></td>
+              <td><input disabled type="text" data-x="7" data-y="B" /></td>
+              <td><input disabled type="text" data-x="8" data-y="B" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="C" /></td>
-              <td><input type="text" data-x="1" data-y="C" /></td>
-              <td><input type="text" data-x="2" data-y="C" /></td>
-              <td><input type="text" data-x="3" data-y="C" /></td>
-              <td><input type="text" data-x="4" data-y="C" /></td>
-              <td><input type="text" data-x="5" data-y="C" /></td>
-              <td><input type="text" data-x="6" data-y="C" /></td>
-              <td><input type="text" data-x="7" data-y="C" /></td>
-              <td><input type="text" data-x="8" data-y="C" /></td>
+              <td><input disabled type="text" data-x="0" data-y="C" /></td>
+              <td><input disabled type="text" data-x="1" data-y="C" /></td>
+              <td><input disabled type="text" data-x="2" data-y="C" /></td>
+              <td><input disabled type="text" data-x="3" data-y="C" /></td>
+              <td><input disabled type="text" data-x="4" data-y="C" /></td>
+              <td><input disabled type="text" data-x="5" data-y="C" /></td>
+              <td><input disabled type="text" data-x="6" data-y="C" /></td>
+              <td><input disabled type="text" data-x="7" data-y="C" /></td>
+              <td><input disabled type="text" data-x="8" data-y="C" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="D" /></td>
-              <td><input type="text" data-x="1" data-y="D" /></td>
-              <td><input type="text" data-x="2" data-y="D" /></td>
-              <td><input type="text" data-x="3" data-y="D" /></td>
-              <td><input type="text" data-x="4" data-y="D" /></td>
-              <td><input type="text" data-x="5" data-y="D" /></td>
-              <td><input type="text" data-x="6" data-y="D" /></td>
-              <td><input type="text" data-x="7" data-y="D" /></td>
-              <td><input type="text" data-x="8" data-y="D" /></td>
+              <td><input disabled type="text" data-x="0" data-y="D" /></td>
+              <td><input disabled type="text" data-x="1" data-y="D" /></td>
+              <td><input disabled type="text" data-x="2" data-y="D" /></td>
+              <td><input disabled type="text" data-x="3" data-y="D" /></td>
+              <td><input disabled type="text" data-x="4" data-y="D" /></td>
+              <td><input disabled type="text" data-x="5" data-y="D" /></td>
+              <td><input disabled type="text" data-x="6" data-y="D" /></td>
+              <td><input disabled type="text" data-x="7" data-y="D" /></td>
+              <td><input disabled type="text" data-x="8" data-y="D" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="E" /></td>
-              <td><input type="text" data-x="1" data-y="E" /></td>
-              <td><input type="text" data-x="2" data-y="E" /></td>
-              <td><input type="text" data-x="3" data-y="E" /></td>
-              <td><input type="text" data-x="4" data-y="E" /></td>
-              <td><input type="text" data-x="5" data-y="E" /></td>
-              <td><input type="text" data-x="6" data-y="E" /></td>
-              <td><input type="text" data-x="7" data-y="E" /></td>
-              <td><input type="text" data-x="8" data-y="E" /></td>
+              <td><input disabled type="text" data-x="0" data-y="E" /></td>
+              <td><input disabled type="text" data-x="1" data-y="E" /></td>
+              <td><input disabled type="text" data-x="2" data-y="E" /></td>
+              <td><input disabled type="text" data-x="3" data-y="E" /></td>
+              <td><input disabled type="text" data-x="4" data-y="E" /></td>
+              <td><input disabled type="text" data-x="5" data-y="E" /></td>
+              <td><input disabled type="text" data-x="6" data-y="E" /></td>
+              <td><input disabled type="text" data-x="7" data-y="E" /></td>
+              <td><input disabled type="text" data-x="8" data-y="E" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="F" /></td>
-              <td><input type="text" data-x="1" data-y="F" /></td>
-              <td><input type="text" data-x="2" data-y="F" /></td>
-              <td><input type="text" data-x="3" data-y="F" /></td>
-              <td><input type="text" data-x="4" data-y="F" /></td>
-              <td><input type="text" data-x="5" data-y="F" /></td>
-              <td><input type="text" data-x="6" data-y="F" /></td>
-              <td><input type="text" data-x="7" data-y="F" /></td>
-              <td><input type="text" data-x="8" data-y="F" /></td>
+              <td><input disabled type="text" data-x="0" data-y="F" /></td>
+              <td><input disabled type="text" data-x="1" data-y="F" /></td>
+              <td><input disabled type="text" data-x="2" data-y="F" /></td>
+              <td><input disabled type="text" data-x="3" data-y="F" /></td>
+              <td><input disabled type="text" data-x="4" data-y="F" /></td>
+              <td><input disabled type="text" data-x="5" data-y="F" /></td>
+              <td><input disabled type="text" data-x="6" data-y="F" /></td>
+              <td><input disabled type="text" data-x="7" data-y="F" /></td>
+              <td><input disabled type="text" data-x="8" data-y="F" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="G" /></td>
-              <td><input type="text" data-x="1" data-y="G" /></td>
-              <td><input type="text" data-x="2" data-y="G" /></td>
-              <td><input type="text" data-x="3" data-y="G" /></td>
-              <td><input type="text" data-x="4" data-y="G" /></td>
-              <td><input type="text" data-x="5" data-y="G" /></td>
-              <td><input type="text" data-x="6" data-y="G" /></td>
-              <td><input type="text" data-x="7" data-y="G" /></td>
-              <td><input type="text" data-x="8" data-y="G" /></td>
+              <td><input disabled type="text" data-x="0" data-y="G" /></td>
+              <td><input disabled type="text" data-x="1" data-y="G" /></td>
+              <td><input disabled type="text" data-x="2" data-y="G" /></td>
+              <td><input disabled type="text" data-x="3" data-y="G" /></td>
+              <td><input disabled type="text" data-x="4" data-y="G" /></td>
+              <td><input disabled type="text" data-x="5" data-y="G" /></td>
+              <td><input disabled type="text" data-x="6" data-y="G" /></td>
+              <td><input disabled type="text" data-x="7" data-y="G" /></td>
+              <td><input disabled type="text" data-x="8" data-y="G" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="H" /></td>
-              <td><input type="text" data-x="1" data-y="H" /></td>
-              <td><input type="text" data-x="2" data-y="H" /></td>
-              <td><input type="text" data-x="3" data-y="H" /></td>
-              <td><input type="text" data-x="4" data-y="H" /></td>
-              <td><input type="text" data-x="5" data-y="H" /></td>
-              <td><input type="text" data-x="6" data-y="H" /></td>
-              <td><input type="text" data-x="7" data-y="H" /></td>
-              <td><input type="text" data-x="8" data-y="H" /></td>
+              <td><input disabled type="text" data-x="0" data-y="H" /></td>
+              <td><input disabled type="text" data-x="1" data-y="H" /></td>
+              <td><input disabled type="text" data-x="2" data-y="H" /></td>
+              <td><input disabled type="text" data-x="3" data-y="H" /></td>
+              <td><input disabled type="text" data-x="4" data-y="H" /></td>
+              <td><input disabled type="text" data-x="5" data-y="H" /></td>
+              <td><input disabled type="text" data-x="6" data-y="H" /></td>
+              <td><input disabled type="text" data-x="7" data-y="H" /></td>
+              <td><input disabled type="text" data-x="8" data-y="H" /></td>
             </tr>
             <tr>
-              <td><input type="text" data-x="0" data-y="I" /></td>
-              <td><input type="text" data-x="1" data-y="I" /></td>
-              <td><input type="text" data-x="2" data-y="I" /></td>
-              <td><input type="text" data-x="3" data-y="I" /></td>
-              <td><input type="text" data-x="4" data-y="I" /></td>
-              <td><input type="text" data-x="5" data-y="I" /></td>
-              <td><input type="text" data-x="6" data-y="I" /></td>
-              <td><input type="text" data-x="7" data-y="I" /></td>
-              <td><input type="text" data-x="8" data-y="I" /></td>
+              <td><input disabled type="text" data-x="0" data-y="I" /></td>
+              <td><input disabled type="text" data-x="1" data-y="I" /></td>
+              <td><input disabled type="text" data-x="2" data-y="I" /></td>
+              <td><input disabled type="text" data-x="3" data-y="I" /></td>
+              <td><input disabled type="text" data-x="4" data-y="I" /></td>
+              <td><input disabled type="text" data-x="5" data-y="I" /></td>
+              <td><input disabled type="text" data-x="6" data-y="I" /></td>
+              <td><input disabled type="text" data-x="7" data-y="I" /></td>
+              <td><input disabled type="text" data-x="8" data-y="I" /></td>
             </tr>
           </tbody>
         </table>
@@ -310,6 +439,8 @@
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <script src="lib/utils.js"></script>
     <script src="lib/SudokuSolver.js"></script>
   </body>
 </html>

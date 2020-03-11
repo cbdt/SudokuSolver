@@ -1,14 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/env",
-      {
-        "targets": {
-          "chrome": 58
-        }
-      }
-    ],
-    "@babel/typescript"
-  ],
+  "presets": [["@babel/env"], "@babel/typescript"],
   "plugins": []
 }

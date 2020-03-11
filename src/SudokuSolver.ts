@@ -28,7 +28,6 @@ class Sudoku {
       const y = input.getAttribute("data-y");
       input.value =
         cells.get(y + "" + x)[0] !== 0 ? cells.get(y + "" + x).toString() : "";
-      input.disabled = true;
     });
   }
 

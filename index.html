@@ -55,8 +55,7 @@
         justify-content: space-between;
       }
 
-      .resolve-btn {
-        width: 100%;
+      .btn {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         background: white;
@@ -68,6 +67,31 @@
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
           0 1px 2px 0 rgba(0, 0, 0, 0.06);
         cursor: pointer;
+      }
+
+      .w-100 {
+        width: 100%;
+      }
+
+      .easy {
+        background-color: #38a169;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        color: white;
+      }
+
+      .medium {
+        background-color: #ed8936;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        color: white;
+      }
+
+      .hard {
+        background-color: #e53e3e;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        color: white;
       }
 
       .resolve-btn:hover {
@@ -216,9 +240,15 @@
       }
     </style>
     <div class="sudoku-samples">
-      <button onclick="Sudoku.generateSudoku(0)">FACILE</button>
-      <button onclick="Sudoku.generateSudoku(1)">MODÉRÉ</button>
-      <button onclick="Sudoku.generateSudoku(2)">DIFFICILE</button>
+      <button onclick="Sudoku.generateSudoku(0)" class="btn easy">
+        FACILE
+      </button>
+      <button onclick="Sudoku.generateSudoku(1)" class="btn medium">
+        MODÉRÉ
+      </button>
+      <button onclick="Sudoku.generateSudoku(2)" class="btn hard">
+        DIFFICILE
+      </button>
     </div>
     <div class="row">
       <div class="sudoku">
@@ -325,7 +355,7 @@
             </tr>
           </tbody>
         </table>
-        <button onclick="Sudoku.resolve()" class="resolve-btn">Résoudre</button>
+        <button onclick="Sudoku.resolve()" class="btn w-100">Résoudre</button>
       </div>
       <div class="sudoku">
         <div class="loader-box">

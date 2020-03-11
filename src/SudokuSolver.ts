@@ -73,10 +73,8 @@ class Sudoku {
 }
 
 class SudokuSolver {
-  /** Cell[x][y] */
   board: Map<string, number[]>;
   variables: Array<string>;
-  constraints: Array<Array<string>>;
   binary_constraints: Array<Array<string>>;
   neighbors: Map<string, Array<string>>;
   possibilities: Map<string, Array<number>>;
@@ -86,7 +84,6 @@ class SudokuSolver {
     this.variables = cross(ROWS, COLUMNS);
     this.neighbors = new Map();
     this.possibilities = new Map();
-    this.constraints = new Array();
     this.binary_constraints = new Array();
 
     // GENERATION DES POSSIBILITES
@@ -117,6 +114,7 @@ class SudokuSolver {
 
     // Transformation en contraintes binaires
 
+    // Les permutations viennent le loadash et sont importés dans le HTML.
     for (const c of column_constraints) {
       this.binary_constraints.push(...permutations(c, 2));
     }
@@ -199,6 +197,12 @@ class SudokuSolver {
     return minV;
   }
 
+  /**
+   * On calcul les conflits existants avec les cellules voisines.
+   * Est utilisé dans LCV.
+   * @param variable
+   * @param value
+   */
   private conflicts(variable: string, value: number): number {
     let nbConflicts = 0;
     for (let neighbor of this.neighbors.get(variable)) {
@@ -221,6 +225,12 @@ class SudokuSolver {
     });
   }
 
+  /**
+   * On s'assure que la variable n'est pas inconsistente avec les assignements
+   * @param assignement
+   * @param variable
+   * @param value
+   */
   private isConsistent(
     assignement: Map<string, number>,
     variable: string,
@@ -248,6 +258,12 @@ class SudokuSolver {
     this.forwardCheck(assignement, variable, value);
   }
 
+  /**
+   * On enlève dans la liste des possibilités des cellules voisines la valeur qu'on vient d'attribuer à la variable
+   * @param assignement
+   * @param variable
+   * @param value
+   */
   private forwardCheck(
     assignement: Map<string, number>,
     variable: string,
@@ -267,6 +283,10 @@ class SudokuSolver {
     assignement.delete(variable);
   }
 
+  /**
+   * Pseudo code : https://www.cpp.edu/~ftang/courses/CS420/notes/CSP.pdf
+   * @param assignement
+   */
   private backtracking(assignement: Map<string, number>) {
     if (assignement.size === this.variables.length) {
       return assignement;
@@ -286,6 +306,12 @@ class SudokuSolver {
       }
     }
     return false;
+  }
+
+  private clearPossibilities(possibilites: Map<string, number[]>) {
+    for (const key of possibilites.keys()) {
+      possibilites.set(key, [0]);
+    }
   }
 
   public process(): [boolean, Map<string, number[]>] {
@@ -317,42 +343,9 @@ class SudokuSolver {
     this.clearPossibilities(this.possibilities);
     return [false, this.possibilities];
   }
-
-  private clearPossibilities(possibilites: Map<string, number[]>) {
-    for (const key of possibilites.keys()) {
-      possibilites.set(key, [0]);
-    }
-  }
 }
 
 // UTILITY FUNCTIONS
-
-// https://gist.github.com/axelpale/3118596
-const kCombinations = <T>(set: T[], k: number) => {
-  if (k > set.length || k <= 0) {
-    return [];
-  }
-
-  if (k === set.length) {
-    return [set];
-  }
-
-  if (k === 1) {
-    return set.reduce((acc, cur) => [...acc, [cur]], [] as T[][]);
-  }
-
-  const combs = [] as T[][];
-  let tail_combs = [];
-
-  for (let i = 0; i <= set.length - k + 1; i++) {
-    tail_combs = kCombinations(set.slice(i + 1), k - 1);
-    for (let j = 0; j < tail_combs.length; j++) {
-      combs.push([set[i], ...tail_combs[j]]);
-    }
-  }
-
-  return combs;
-};
 
 const cross = (A: string, B: string): Array<string> => {
   let res = new Array<string>();

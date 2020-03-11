@@ -16,9 +16,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:types": "tsc",
-    "build:js": "babel lib --out-dir lib --extensions \".js\" --source-maps inline",
+    "build:js": "babel lib --out-dir public/lib --extensions \".js\" --source-maps inline",
     "build": "npm run build:types && npm run build:js",
-    "watch": "babel --watch src --out-dir lib --extensions '.ts,.tsx' --source-maps inline"
+    "watch": "babel --watch src --out-dir public/lib --extensions '.ts,.tsx' --source-maps inline"
   },
   "author": "",
   "license": "ISC"
